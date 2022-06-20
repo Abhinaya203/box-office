@@ -15,9 +15,9 @@ function App() {
         <Starred />
       </Route>
 
-      <React exact path="/show/:id">
+      <Route exact path="/show/:id">
         <Show />
-      </React>
+      </Route>
 
       <Route>
         <div>Not found</div>
