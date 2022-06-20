@@ -18,6 +18,7 @@
     "react/function-component-definition": "off",
     "no-console": "off",
     "no-unused-vars": "off",
-    "react/no-unknown-property": "off"
+    "react/no-unknown-property": "off",
+    "arrow-body-style": "off"
   }
 }
