@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
-import ActorGrid from '../components/actor/ActorGrid';
 import MainPageLayout from '../components/MainPageLayout';
-import ShowGrid from '../components/show/ShowGrid';
 import { apiGet } from '../misc/config';
+import ShowGrid from '../components/show/ShowGrid';
+import ActorGrid from '../components/actor/ActorGrid';
+import { useLastQuery } from '../misc/custom-hooks';
+import {
+  SearchInput,
+  RadioInputsWrapper,
+  SearchButtonWrapper,
+} from './Home.styled';
+import CustomRadio from '../components/CustomRadio';
 
-function Home() {
-  const [input, setInput] = useState('');
+const Home = () => {
+  const [input, setInput] = useLastQuery();
   const [results, setResults] = useState(null);
   const [searchOption, setSearchOption] = useState('shows');
 
   const isShowsSearch = searchOption === 'shows';
-  function onSearch() {
+  const onSearch = () => {
     apiGet(`/search/${searchOption}?q=${input}`).then(result => {
       setResults(result);
     });
-  }
+  };
 
-  function onInputChange(ev) {
+  const onInputChange = ev => {
     setInput(ev.target.value);
-  }
+  };
 
-  function onKeyDown(ev) {
+  const onKeyDown = ev => {
     if (ev.keyCode === 13) {
       onSearch();
     }
-  }
+  };
 
-  function onRadioChange(ev) {
+  const onRadioChange = ev => {
     setSearchOption(ev.target.value);
-  }
+  };
 
-  function renderResults() {
+  const renderResults = () => {
     if (results && results.length === 0) {
-      return <div>No Results</div>;
+      return <div>No results</div>;
     }
 
     if (results && results.length > 0) {
@@ -44,11 +51,11 @@ function Home() {
     }
 
     return null;
-  }
+  };
 
   return (
     <MainPageLayout>
-      <input
+      <SearchInput
         type="text"
         placeholder="Search for something"
         onChange={onInputChange}
@@ -56,35 +63,36 @@ function Home() {
         value={input}
       />
 
-      <div>
-        <label htmlfor="shows-search">
-          Shows
-          <input
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio
+            label="Shows"
             id="shows-search"
-            type="radio"
             value="shows"
             checked={isShowsSearch}
             onChange={onRadioChange}
           />
-        </label>
+        </div>
 
-        <label htmlFor="actors-search">
-          Actors
-          <input
+        <div>
+          <CustomRadio
+            label="Actors"
             id="actors-search"
-            type="radio"
             value="people"
             checked={!isShowsSearch}
             onChange={onRadioChange}
           />
-        </label>
-      </div>
-      <button type="button" onClick={onSearch}>
-        Search
-      </button>
+        </div>
+      </RadioInputsWrapper>
+
+      <SearchButtonWrapper>
+        <button type="button" onClick={onSearch}>
+          Search
+        </button>
+      </SearchButtonWrapper>
       {renderResults()}
     </MainPageLayout>
   );
-}
+};
 
 export default Home;
