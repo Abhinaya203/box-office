@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 const API_BASE_URL = 'https://api.tvmaze.com';
 
 export async function apiGet(queryString) {

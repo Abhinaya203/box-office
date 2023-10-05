@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// eslint-disable-next-line import/prefer-default-export
 export const TitleWrapper = styled.div`
   text-align: center;
   margin: 0 0 40px;

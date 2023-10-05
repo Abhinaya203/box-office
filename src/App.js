@@ -1,3 +1,5 @@
+// npx create-react-app box-office --template cra-template-pwa --use-npm
+
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
